@@ -4,25 +4,33 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { CreateEntry } from '../pages/create/create';
+import { WelcomePage } from '../pages/welcome/welcome'; 
 
 @Component({
   templateUrl: 'app.html'
 })
+
+
+
 export class MyApp {
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild(Nav) nav: Nav; 
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, class: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'BEACH REVIEWS', component: HomePage, class: 'dark' },
+      { title: 'Create new beach review', component: CreateEntry, class: 'add' },
+      { title: 'Welcome screen', component: WelcomePage, class: '' },
+      { title: 'My collections (0)', component: CreateEntry, class: 'devider' },
+      { title: 'Edit profile', component: CreateEntry, class: '' },
+      { title: 'Sign out', component: CreateEntry, class: '' }
     ];
 
   }

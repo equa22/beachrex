@@ -1,14 +1,19 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <img src="../assets/imgs/user.png">
+      <div class="name">
+        Alenka Horvat
+        <small>alenka@horvat.com</small>
+      </div>
+      <!--<ion-title>Menu</ion-title>-->
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [class]="p.class">
+        {{p.title}}<img *ngIf="p.class == 'add'" src="../assets/icon/add.png">
       </button>
     </ion-list>
   </ion-content>

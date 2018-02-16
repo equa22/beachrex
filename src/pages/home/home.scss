@@ -1,3 +1,39 @@
 page-home {
+	.main-nav {
+    height: 33.333%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    color: white;
+    font-size: 6.94vw;
+    font-weight: $bold;
+    border-bottom: solid white 1.04vw;
 
+    &:nth-child(1) {
+    	background-image: url(../assets/imgs/bcg1.jpg);
+    }
+    &:nth-child(2) {
+    	background-image: url(../assets/imgs/bcg2.jpg);
+    }
+    &:nth-child(3) {
+    	background-image: url(../assets/imgs/bcg3.jpg);
+    	border-bottom: none;
+    }
+
+    .big {
+    	font-size: 10.42vw;
+    }
+    .small {
+    	font-size: 3.47vw;
+    	font-weight: $regular;
+    }
+	}
+}
+
+
+ion-header {
+	.toolbar-background {
+		background-color: transparent !important;
+		border: none !important;
+	}
 }
