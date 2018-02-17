@@ -1,0 +1,150 @@
+<ion-header class="transparent">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="grey-bg">
+  <div class="tabs-secction">
+    <div class="logo">
+      <img src="../assets/imgs/logo.png" *ngIf="_active_tab == 1">
+      <div *ngIf="_active_tab > 1">{{ info.beach_name }}</div>
+    </div>
+    <div class="tabs">
+      <div class="tab" [class.active]="_active_tab == 1">info</div>
+      <div class="tab" [class.active]="_active_tab == 2">create</div>
+      <div class="tab" [class.active]="_active_tab == 3" (click)="selectTab(3)">features</div>
+      <div class="tab" [class.active]="_active_tab == 4" (click)="selectTab(4)">preview</div>
+    </div>
+  </div>
+  <div class="tab-content" *ngIf="_active_tab == 1">
+    <div class="group white-item">
+      <div class="group-title">Basic information</div>
+      <ion-item>
+        <ion-label>Continent:</ion-label>
+        <ion-select [(ngModel)]="info.continent">
+          <ion-option value="{{c.code}}" *ngFor="let c of continents" >{{ c.name }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Country:</ion-label>
+        <ion-select [(ngModel)]="info.country">
+          <ion-option value="{{c.code}}" *ngFor="let c of countries">{{ c.name }}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Nearest city:</ion-label>
+        <ion-input [(ngModel)]="info.nearest_city"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Beach name:</ion-label>
+        <ion-input [(ngModel)]="info.beach_name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="grey">Island</ion-label>
+        <ion-checkbox [(ngModel)]="info.type" ></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label class="grey">Land</ion-label>
+        <ion-checkbox [(ngModel)]="info.type"></ion-checkbox>
+      </ion-item>
+    </div>
+    <textarea [(ngModel)]="info.description" placeholder="Short description..." class="white-item"></textarea>
+    <button ion-button color="secondary" class="proceed right" (click)="selectTab(2)">Next step</button>
+  </div>
+  <div class="tab-content" *ngIf="_active_tab == 2">
+    <div class="group" >
+      <div *ngIf="!_galleryOpened">
+        <div class="media-item">
+          <div class="icon photo">PARKING<span>{{ gallery.parking.images.length }}/ {{ gallery.parking.limit }}</span></div>
+          <button class="big" (click)="openGallery(gallery.parking)">PHOTO GALLERY</button>
+          <ion-item>
+            <ion-label class="grey">no parking available</ion-label>
+            <ion-checkbox [(ngModel)]="!info.parking_image"></ion-checkbox>
+          </ion-item>
+        </div>
+        <div class="media-item">
+          <div class="icon photo">PATH<span>{{ gallery.video.images.length }}/ {{ gallery.video.limit }}</span></div>
+          <button class="big" (click)="openGallery(gallery.video)">VIDEO GALLERY</button>
+          <ion-item>
+            <ion-label class="grey">no path available</ion-label>
+            <ion-checkbox [(ngModel)]="!info.path_image"></ion-checkbox>
+          </ion-item>
+        </div>
+        <div class="media-item">
+          <div class="icon map">DRAW THE PATH</div>
+          <button class="big">VIDEO GALLERY</button>
+          <ion-item>
+            <ion-label class="grey">no path available</ion-label>
+            <ion-checkbox [(ngModel)]="!info.draw_path"></ion-checkbox>
+          </ion-item>
+        </div>
+        <div class="media-item margin">
+          <div class="icon photo">BEACH<span>{{ gallery.beach.images.length }}/ {{ gallery.beach.limit }}</span></div>
+          <button class="big" (click)="openGallery(gallery.beach)">SPHERE GALLERY</button>
+        </div>
+        <div class="media-item margin">
+          <div class="icon video">VIDEO<span>0/5</span></div>
+          <button class="big">VIDEO GALLERY</button>
+        </div>
+        <div class="media-item">
+          <div class="icon sphere">SPHERE<span>0/5</span></div>
+          <button class="big">SPHERE GALLERY</button>
+          <ion-item>
+            <ion-label class="grey">no sphere available</ion-label>
+            <ion-checkbox [(ngModel)]="!info.sphere"></ion-checkbox>
+          </ion-item>
+        </div>
+        <button ion-button color="secondary" class="proceed right" (click)="selectTab(1)">Previous step</button>
+        <button ion-button color="secondary" class="proceed right" (click)="selectTab(3)">Next step</button>
+      </div>
+      <div *ngIf="_galleryOpened">
+        <div class="gallery">
+          <div class="heading">
+            <span>{{ galleryItem.label }} {{ galleryItem.images.length }}/{{ galleryItem.limit }}</span>
+            <label (click)="deleteImages()">CHOOSE TO DELETE</label>
+          </div>
+          <div class="images">
+            <div class="image-wrapper" 
+                 (click)="item.selected = !item.selected"
+                 [class.selected]="item.selected"
+                 *ngFor="let item of galleryItem.images" >
+              <img [src]="item.path">
+            </div>
+          </div>
+          <button ion-button color="secondary" class="proceed right" (click)="_galleryOpened = false">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content no-padding" *ngIf="_active_tab == 3">
+    <div class="slide-nav">
+      <div class="inner-wrapper">
+        <div class="item" [class.active]="_active_type == 1" (click)="selectType(1)">Beach tipe</div>
+        <div class="item" [class.active]="_active_type == 2" (click)="selectType(2)">User tipe</div>
+        <div class="item" [class.active]="_active_type == 3" (click)="selectType(3)">Gastronomy</div>
+        <div class="item" [class.active]="_active_type == 4" (click)="selectType(4)">Environment & accomodation</div>
+      </div>
+    </div>
+    <div class="group white-item">
+      <div class="group-title">Natural features</div>
+      <div class="checkboxes">
+        <ion-item *ngFor="let item of natural_features">
+          <ion-label class="grey">{{ item.name }}</ion-label>
+          <ion-checkbox [(ngModel)]="item.selected" ></ion-checkbox>
+        </ion-item>
+      </div>
+      <div class="group-title">Underwater Bottom </div>
+      <div class="checkboxes">
+        <ion-item *ngFor="let item of undervater_bottom">
+          <ion-label class="grey">{{ item.name }}</ion-label>
+          <ion-checkbox [(ngModel)]="item.selected" ></ion-checkbox>
+        </ion-item>
+      </div>
+    </div>
+    <button ion-button color="secondary" class="proceed right" (click)="selectTab(2)">Previous step</button>
+    <button ion-button color="secondary" class="proceed right" (click)="selectTab(4)">Next step</button>
+  </div>
+</ion-content>

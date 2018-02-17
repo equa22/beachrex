@@ -1,0 +1,44 @@
+page-welcome {
+	
+
+	.content-md {
+		background-image: url("../assets/imgs/sand.png");
+		background-size: cover;
+		
+
+		.scroll-content {
+			display: flex;
+			align-items: center;
+			padding: 10.63vw 11.94vw 0 11.94vw;
+			background-position: bottom;
+			flex-direction: column;
+		}
+	}
+	.ion-md-menu:before {
+		color: $blue;
+	}
+
+	.user {
+		display: flex;
+		align-items: center;
+		align-content: center; 
+		justify-content: center;
+		font-size: 3.89vw;
+		font-weight: bold;
+		margin-top: 6.94vw;
+
+		img {
+			height: 11.46vw;
+			width: 11.46vw;
+			border-radius: 50%;
+			object-fit: cover;
+			margin-right: 3.89vw;
+		}
+	}
+	.shutter {
+		margin-top: 27.78vw;
+		height: 50.00vw;
+		width: 50.00vw;
+		margin-bottom: 16.88vw;
+	}
+}
