@@ -9,12 +9,12 @@
 <ion-content class="grey-bg">
   <div class="tabs-secction">
     <div class="logo">
-      <img src="../assets/imgs/logo.png" *ngIf="_active_tab == 1">
-      <div *ngIf="_active_tab > 1">{{ info.beach_name }}</div>
+      <img src="assets/imgs/logo.png" *ngIf="_active_tab == 1">
+      <div *ngIf="_active_tab > 1">{{ data[0].fields[3].value }}</div>
     </div>
     <div class="tabs">
-      <div class="tab" [class.active]="_active_tab == 1">info</div>
-      <div class="tab" [class.active]="_active_tab == 2">create</div>
+      <div class="tab" [class.active]="_active_tab == 1" (click)="selectTab(1)">info</div>
+      <div class="tab" [class.active]="_active_tab == 2" (click)="selectTab(2)">create</div>
       <div class="tab" [class.active]="_active_tab == 3" (click)="selectTab(3)">features</div>
       <div class="tab" [class.active]="_active_tab == 4" (click)="selectTab(4)">preview</div>
     </div>
@@ -22,15 +22,31 @@
   <div class="tab-content" *ngIf="_active_tab == 1">
     <div class="group white-item">
       <div class="group-title">Basic information</div>
+      <div *ngFor="let item of data[0].fields;">
+        <ion-item *ngIf="item.type != 'checkboxes'">
+          <ion-label *ngIf="item._display_title">{{ item.name }}: </ion-label>
+          <ion-input [(ngModel)]="item.value" *ngIf="item.type == 'text'"></ion-input>
+          <ion-select [(ngModel)]="item.value" interface="popover" *ngIf="item.type == 'select'">
+            <ion-option value="{{c.code}}" *ngFor="let c of item.options" >{{ c.name }}</ion-option>
+          </ion-select>
+        </ion-item>
+        <div class="checkboxes" *ngIf="item.type == 'checkboxes'">
+          <div class="item" *ngFor="let type of item.options" (click)="type.selected = !type.selected">
+            <div class="checkbox" [class.checked]="type.selected"></div><label>{{ type.name }}</label>
+          </div>
+        </div> 
+      </div>
+      
+      <!--
       <ion-item>
         <ion-label>Continent:</ion-label>
-        <ion-select [(ngModel)]="info.continent">
+        <ion-select [(ngModel)]="info.continent" interface="popover">
           <ion-option value="{{c.code}}" *ngFor="let c of continents" >{{ c.name }}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label>Country:</ion-label>
-        <ion-select [(ngModel)]="info.country">
+        <ion-select [(ngModel)]="info.country" interface="popover">
           <ion-option value="{{c.code}}" *ngFor="let c of countries">{{ c.name }}</ion-option>
         </ion-select>
       </ion-item>
@@ -42,14 +58,11 @@
         <ion-label>Beach name:</ion-label>
         <ion-input [(ngModel)]="info.beach_name"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label class="grey">Island</ion-label>
-        <ion-checkbox [(ngModel)]="info.type" ></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label class="grey">Land</ion-label>
-        <ion-checkbox [(ngModel)]="info.type"></ion-checkbox>
-      </ion-item>
+      <div class="checkboxes">
+        <div class="item" *ngFor="let type of _beach_type" (click)="type.selected = !type.selected">
+          <div class="checkbox" [class.checked]="type.selected"></div><label>{{ type.name }}</label>
+        </div>
+      </div>-->
     </div>
     <textarea [(ngModel)]="info.description" placeholder="Short description..." class="white-item"></textarea>
     <button ion-button color="secondary" class="proceed right" (click)="selectTab(2)">Next step</button>
@@ -128,23 +141,27 @@
         <div class="item" [class.active]="_active_type == 4" (click)="selectType(4)">Environment & accomodation</div>
       </div>
     </div>
-    <div class="group white-item">
-      <div class="group-title">Natural features</div>
-      <div class="checkboxes">
-        <ion-item *ngFor="let item of natural_features">
-          <ion-label class="grey">{{ item.name }}</ion-label>
-          <ion-checkbox [(ngModel)]="item.selected" ></ion-checkbox>
-        </ion-item>
-      </div>
-      <div class="group-title">Underwater Bottom </div>
-      <div class="checkboxes">
-        <ion-item *ngFor="let item of undervater_bottom">
-          <ion-label class="grey">{{ item.name }}</ion-label>
-          <ion-checkbox [(ngModel)]="item.selected" ></ion-checkbox>
-        </ion-item>
+
+    <div class="group white-item" *ngFor="let tab of data[2].tabs; let i = index;">
+      <div *ngIf="i == _active_type-1">
+        <div *ngFor="let item of tab.fields">
+          <ion-item *ngIf="item.type != 'checkboxes'">
+            <ion-label *ngIf="item._display_title">{{ item.name }}:</ion-label>
+            <ion-input [(ngModel)]="item.value" *ngIf="item.type == 'text'"></ion-input>
+            <ion-select [(ngModel)]="item.value" interface="popover" *ngIf="item.type == 'select'">
+              <ion-option value="{{c.code}}" *ngFor="let c of item.options" >{{ c.name }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="checkboxes" *ngIf="item.type == 'checkboxes'">
+            <div class="group-title">{{ item.name }}</div>
+            <div class="item" *ngFor="let type of item.options" (click)="type.selected = !type.selected">
+              <div class="checkbox" [class.checked]="type.selected"></div><label>{{ type.name }}</label>
+            </div>
+          </div> 
+        </div>
       </div>
     </div>
-    <button ion-button color="secondary" class="proceed right" (click)="selectTab(2)">Previous step</button>
-    <button ion-button color="secondary" class="proceed right" (click)="selectTab(4)">Next step</button>
+    <button ion-button color="secondary" class="proceed right" (click)="_active_type > 1 ? selectType(_active_type - 1) : selectTab(2)">Previous step</button>
+    <button ion-button color="secondary" class="proceed right" (click)="selectType(_active_type + 1)">Next step</button>
   </div>
 </ion-content>

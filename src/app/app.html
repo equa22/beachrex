@@ -1,7 +1,7 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
-      <img src="../assets/imgs/user.png">
+      <img src="assets/imgs/user.png">
       <div class="name">
         Alenka Horvat
         <small>alenka@horvat.com</small>
@@ -13,7 +13,7 @@
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [class]="p.class">
-        {{p.title}}<img *ngIf="p.class == 'add'" src="../assets/icon/add.png">
+        {{p.title}}<img *ngIf="p.class == 'add'" src="assets/icon/add.png">
       </button>
     </ion-list>
   </ion-content>

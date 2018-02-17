@@ -1,5 +1,38 @@
 // create view
+.checkboxes {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 4.86vw;
 
+	.item {
+		width: 33.33%;
+		display: flex;
+		font-size: 3.26vw;
+		min-height: 10px;
+		margin: 0;
+		margin-bottom: 3.96vw;
+	}
+	label {
+		margin-left: 1.81vw;
+		color: $grey;
+		font-size: 3.75vw;
+	}
+
+	
+	.checkbox {
+		border-radius: 0;
+	    border: none;
+	    background-image: url(../assets/icon/unchecked.png);
+	    background-color: transparent;
+	    width: 4.17vw;
+	    height: 4.17vw;
+	    background-size: 4.17vw;	
+
+	    &.checked {
+	    	background-image: url(../assets/icon/checked.png);
+	    }
+	} 
+}
 
 page-create {
 	.tabs-secction {
@@ -98,15 +131,26 @@ page-create {
     	color: $orange;
     	padding-bottom: 6.60vw;
     	border-bottom: solid 1px #e9eaec;
+    	margin-bottom: 4.86vw;
+    	width: 100%;
     }
-    .item-md {
+    .item {
     	padding-left: 0;
     	background-color: transparent;
 
     	&.item-block {
     		.item-inner {
     			border-bottom: none;
+    			box-shadow: none;
 
+    		}
+    	}
+    	&.input-has-focus.item-block {
+    		.input-wrapper {
+    			.input {
+    				border-color: $blue;
+    			}
+    			
     		}
     	}
     }
@@ -146,14 +190,14 @@ page-create {
     .item.item-md .checkbox-md {
     	margin: 0 1.5vw 0 0;
     }
-    .text-input-md {
+    .text-input {
     	margin: 0;
     }
 	}
 	ion-item.item.item-block.item-md.item-checkbox {
-    width: auto;
-    display: inline-flex;
-    margin-right: 10px;
+	    width: auto;
+	    display: inline-flex;
+	    margin-right: 10px;
 	}
 
 	textarea {
@@ -253,6 +297,7 @@ page-create {
 
 
 }
+
 .gallery {
 	display: flex;
 	flex-wrap: wrap;
@@ -310,4 +355,12 @@ page-create {
 .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
 	border-bottom: none;
 	box-shadow: none;
+}
+
+/* IOS */
+.checkbox-ios .checkbox-icon {
+	background-color: transparent;
+}
+.item-ios {
+	background-color: transparent;
 }

@@ -51,7 +51,7 @@ body {
 		margin-top: 0 !important;
 	}	
 }
-$menu-padding: 3vw;
+$menu-padding: 6.46vw;
 
 .ion-md-menu:before {
     color: white;
@@ -75,18 +75,18 @@ ion-menu {
 			background-color: white;
 			display: flex;
 			align-items: center;
-			font-size: 3.5vw;
+			font-size: 3.9vw;
 			width: 100%;
 			text-align: left;
 			padding-left: $menu-padding;
 
 			&.dark {
 				font-weight: bold;
-				margin-top: 4vw;
+				margin-top: 4.65vw;
 			}
 			&.devider {
-				padding-bottom: 4vw;
-				margin-bottom: 4vw;
+				padding-bottom: 4.65vw;
+				margin-bottom: 4.65vw;
 				border-bottom: solid 0.07vw #d5d7db;
 			}
 			img {
@@ -102,11 +102,11 @@ ion-menu {
 
 		img {
 			border-radius: 50%;
-			width: 14vw;
-			height: 14vw;
+			width: 11.46vw;
+			height: 11.46vw;
 		}
 		.name {
-			margin-left: 2vw;
+			margin-left: 3.9vw;
 			display: flex;
 			flex-direction: column;
 		}
