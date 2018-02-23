@@ -1,8 +1,8 @@
 // create view
-.checkboxes {
+.checkboxes, .radio-buttons {
 	display: flex;
 	flex-wrap: wrap;
-	margin-top: 4.86vw;
+	//margin-top: 4.86vw;
 
 	.item {
 		width: 33.33%;
@@ -18,7 +18,11 @@
 		font-size: 3.75vw;
 	}
 
-	
+	.group-title {
+		border: none;
+		padding-bottom: 0;
+		margin-bottom: 6.53vw;
+	}
 	.checkbox {
 		border-radius: 0;
 	    border: none;
@@ -26,10 +30,25 @@
 	    background-color: transparent;
 	    width: 4.17vw;
 	    height: 4.17vw;
+	    min-width: 4.17vw;
 	    background-size: 4.17vw;	
 
 	    &.checked {
 	    	background-image: url(../assets/icon/checked.png);
+	    }
+	} 
+	.radio {
+		border-radius: 0;
+	    border: none;
+	    background-image: url(../assets/icon/radio_unchecked.png);
+	    background-color: transparent;
+	    width: 4.17vw;
+	    height: 4.17vw;
+	    min-width: 4.17vw;
+	    background-size: 4.17vw;	
+
+	    &.checked {
+	    	background-image: url(../assets/icon/radio_checked.png);
 	    }
 	} 
 }
@@ -38,6 +57,11 @@ page-create {
 	.tabs-secction {
 		background-color: $blue;
 		color: white;
+		height: 30.67vw;
+	    position: fixed;
+	    width: 100%;
+	    top: 0;
+	    z-index: 10;
 	}
 	.checkboxes {
 		ion-item.item.item-block.item-md.item-checkbox {
@@ -72,13 +96,27 @@ page-create {
 			}
 		}
 	}
-	.white-item {
+	.white-item.group {
 		background-color: white;
 	  border-radius: 3px;
 	  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
 		-moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
 		box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
 		border: none;
+
+		.padding {
+			padding: 4.86vw 4.17vw 18.06vw 4.17vw;
+		}
+	}
+	.buttons {
+		display: flex;
+		width: 100%;
+		padding: 4.17vw;
+
+		.grow {
+			flex-grow: 1;
+			min-height: 1px;
+		}
 	}
 	.logo {
 		text-align: center;
@@ -98,6 +136,9 @@ page-create {
 		align-items: center;
 		justify-content: center;
 		//margin-top: 8.33vw;
+		position: absolute;
+	    bottom: 0;
+	    width: 100%;
 
 		.tab {
 			padding: 0 3.47vw 4.17vw 3.47vw;
@@ -109,31 +150,32 @@ page-create {
 		}
 	}
 	.tab-content {
-		padding: 11.39vw 2.29vw 8.47vw 2.29vw;
+		padding: 42vw 2.29vw 8.47vw 2.29vw;
 		align-items: flex-end;
-    display: flex;
-    flex-direction: column;
+	    display: flex;
+	    flex-direction: column;
 
     &.small-top-padding {
     	padding-top: 2vw;
     }
     &.no-padding {
-    	padding-top: 0;
+    	padding-top: 31vw;
     }
 	}
-	.group {
-    padding: 4.86vw 4.17vw 18.06vw 4.17vw;
-    width: 100%;
+	.group-title {
+  	font-weight: bold;
+  	font-size: 3.89vw;
+  	color: $orange;
+  	padding-bottom: 6.60vw;
+  	border-bottom: solid 1px #e9eaec;
+  	margin-bottom: 4.86vw;
+  	width: 100%;
+  }
 
-    .group-title {
-    	font-weight: bold;
-    	font-size: 3.89vw;
-    	color: $orange;
-    	padding-bottom: 6.60vw;
-    	border-bottom: solid 1px #e9eaec;
-    	margin-bottom: 4.86vw;
-    	width: 100%;
-    }
+	.group {
+    padding: 4.86vw 4.17vw 8.06vw 4.17vw;
+    width: 100%;
+    
     .item {
     	padding-left: 0;
     	background-color: transparent;
@@ -156,6 +198,7 @@ page-create {
     }
     .input-wrapper {
     	align-items: baseline;
+    	flex-wrap: wrap;
     }
 
     .label {

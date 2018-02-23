@@ -79,7 +79,7 @@
           </ion-item>
         </div>
         <div class="media-item">
-          <div class="icon photo">PATH<span>{{ gallery.video.images.length }}/ {{ gallery.video.limit }}</span></div>
+          <div class="icon photo" (click)="takePicture()">PATH<span>{{ gallery.video.images.length }}/ {{ gallery.video.limit }}</span></div>
           <button class="big" (click)="openGallery(gallery.video)">VIDEO GALLERY</button>
           <ion-item>
             <ion-label class="grey">no path available</ion-label>
@@ -110,8 +110,11 @@
             <ion-checkbox [(ngModel)]="!info.sphere"></ion-checkbox>
           </ion-item>
         </div>
-        <button ion-button color="secondary" class="proceed right" (click)="selectTab(1)">Previous step</button>
-        <button ion-button color="secondary" class="proceed right" (click)="selectTab(3)">Next step</button>
+        <div class="buttons">
+          <button ion-button color="secondary" class="proceed right" (click)="selectTab(1)">Previous step</button>
+          <div class="grow"></div>
+          <button ion-button color="secondary" class="proceed right" (click)="selectTab(3)">Next step</button>
+        </div>
       </div>
       <div *ngIf="_galleryOpened">
         <div class="gallery">
@@ -135,21 +138,28 @@
   <div class="tab-content no-padding" *ngIf="_active_tab == 3">
     <div class="slide-nav">
       <div class="inner-wrapper">
+        <!--
         <div class="item" [class.active]="_active_type == 1" (click)="selectType(1)">Beach tipe</div>
         <div class="item" [class.active]="_active_type == 2" (click)="selectType(2)">User tipe</div>
         <div class="item" [class.active]="_active_type == 3" (click)="selectType(3)">Gastronomy</div>
         <div class="item" [class.active]="_active_type == 4" (click)="selectType(4)">Environment & accomodation</div>
+      -->
+        <div class="item" 
+          *ngFor="let item of data[2].tabs; let i = index;" 
+          [class.active]="_active_type == i + 1"
+          (click)="selectType(i + 1)">
+          {{ item.title }}
+        </div>
       </div>
     </div>
-
-    <div class="group white-item" *ngFor="let tab of data[2].tabs; let i = index;">
-      <div *ngIf="i == _active_type-1">
+    <div  class="padding" *ngFor="let tab of data[2].tabs; let i = index;">
+      <div class="group white-item" *ngIf="i == _active_type-1">
         <div *ngFor="let item of tab.fields">
-          <ion-item *ngIf="item.type != 'checkboxes'">
+          <ion-item *ngIf="item.type != 'checkboxes' && item.type != 'radio'">
             <ion-label *ngIf="item._display_title">{{ item.name }}:</ion-label>
             <ion-input [(ngModel)]="item.value" *ngIf="item.type == 'text'"></ion-input>
             <ion-select [(ngModel)]="item.value" interface="popover" *ngIf="item.type == 'select'">
-              <ion-option value="{{c.code}}" *ngFor="let c of item.options" >{{ c.name }}</ion-option>
+              <ion-option value="{{c.id}}" *ngFor="let c of item.options" >{{ c.name }}</ion-option>
             </ion-select>
           </ion-item>
           <div class="checkboxes" *ngIf="item.type == 'checkboxes'">
@@ -158,10 +168,27 @@
               <div class="checkbox" [class.checked]="type.selected"></div><label>{{ type.name }}</label>
             </div>
           </div> 
+          <div class="radio-buttons" *ngIf="item.type == 'radio'">
+            <div class="group-title">{{ item.name }}</div>
+            <div class="item" *ngFor="let type of item.options" (click)="selectRadio(type, item)">
+              <div class="radio" [class.checked]="type.selected"></div><label>{{ type.name }}</label>
+            </div>
+          </div> 
         </div>
       </div>
     </div>
-    <button ion-button color="secondary" class="proceed right" (click)="_active_type > 1 ? selectType(_active_type - 1) : selectTab(2)">Previous step</button>
-    <button ion-button color="secondary" class="proceed right" (click)="selectType(_active_type + 1)">Next step</button>
+    <div class="buttons">
+      <button ion-button color="secondary" 
+              class="proceed right" 
+              (click)="_active_type > 1 ? selectType(_active_type - 1) : selectTab(2)">
+              Previous step
+      </button>
+      <div class="grow"></div>
+      <button ion-button color="secondary" 
+              class="proceed right" 
+              (click)="selectType(_active_type + 1)">
+            Next step
+      </button>
+    </div>
   </div>
 </ion-content>
