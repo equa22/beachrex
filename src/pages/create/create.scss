@@ -58,7 +58,7 @@ page-create {
 		background-color: $blue;
 		color: white;
 		height: 30.67vw;
-	    position: fixed;
+	    position: relative;
 	    width: 100%;
 	    top: 0;
 	    z-index: 10;
@@ -137,8 +137,8 @@ page-create {
 		justify-content: center;
 		//margin-top: 8.33vw;
 		position: absolute;
-	    bottom: 0;
-	    width: 100%;
+    bottom: 0;
+    width: 100%;
 
 		.tab {
 			padding: 0 3.47vw 4.17vw 3.47vw;
@@ -150,7 +150,9 @@ page-create {
 		}
 	}
 	.tab-content {
-		padding: 42vw 2.29vw 8.47vw 2.29vw;
+		padding: 12vw 2.29vw 8.47vw 2.29vw;
+		height: calc(100vh - 30.67vw);
+    overflow: scroll;
 		align-items: flex-end;
 	    display: flex;
 	    flex-direction: column;

@@ -36,33 +36,6 @@
           </div>
         </div> 
       </div>
-      
-      <!--
-      <ion-item>
-        <ion-label>Continent:</ion-label>
-        <ion-select [(ngModel)]="info.continent" interface="popover">
-          <ion-option value="{{c.code}}" *ngFor="let c of continents" >{{ c.name }}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Country:</ion-label>
-        <ion-select [(ngModel)]="info.country" interface="popover">
-          <ion-option value="{{c.code}}" *ngFor="let c of countries">{{ c.name }}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Nearest city:</ion-label>
-        <ion-input [(ngModel)]="info.nearest_city"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Beach name:</ion-label>
-        <ion-input [(ngModel)]="info.beach_name"></ion-input>
-      </ion-item>
-      <div class="checkboxes">
-        <div class="item" *ngFor="let type of _beach_type" (click)="type.selected = !type.selected">
-          <div class="checkbox" [class.checked]="type.selected"></div><label>{{ type.name }}</label>
-        </div>
-      </div>-->
     </div>
     <textarea [(ngModel)]="info.description" placeholder="Short description..." class="white-item"></textarea>
     <button ion-button color="secondary" class="proceed right" (click)="selectTab(2)">Next step</button>
@@ -71,7 +44,10 @@
     <div class="group" >
       <div *ngIf="!_galleryOpened">
         <div class="media-item">
-          <div class="icon photo">PARKING<span>{{ gallery.parking.images.length }}/ {{ gallery.parking.limit }}</span></div>
+          <div class="icon photo" (click)="takePicture(gallery.parking)">
+            PARKING
+            <span>{{ gallery.parking.images.length }}/ {{ gallery.parking.limit }}</span>
+          </div>
           <button class="big" (click)="openGallery(gallery.parking)">PHOTO GALLERY</button>
           <ion-item>
             <ion-label class="grey">no parking available</ion-label>
@@ -79,7 +55,7 @@
           </ion-item>
         </div>
         <div class="media-item">
-          <div class="icon photo" (click)="takePicture()">PATH<span>{{ gallery.video.images.length }}/ {{ gallery.video.limit }}</span></div>
+          <div class="icon photo">PATH<span>{{ gallery.video.images.length }}/ {{ gallery.video.limit }}</span></div>
           <button class="big" (click)="openGallery(gallery.video)">VIDEO GALLERY</button>
           <ion-item>
             <ion-label class="grey">no path available</ion-label>
