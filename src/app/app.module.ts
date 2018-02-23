@@ -42,8 +42,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    IonicErrorHandler,
-        [{ provide: ErrorHandler, useClass: MyErrorHandler }]
+    IonicErrorHandler
   ]
 })
 
