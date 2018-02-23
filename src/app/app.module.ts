@@ -48,8 +48,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 
 // <start monitoring stuff>
-Pro.init('YOUR_APP_ID', {
-  appVersion: 'APP_VERSION'
+Pro.init('03d7a2fc', {
+  appVersion: '03d7a2fc'
 })
 
 @Injectable()
