@@ -369,6 +369,7 @@ export class CreateEntry {
 
 	}
 
+
 	parse(data) {
 		console.log(data)
 
@@ -520,15 +521,13 @@ export class CreateEntry {
 	takePicture(){
       this.options = {
         quality: 100,
-        sourceType: this.camera.PictureSourceType.CAMERA,
-        saveToPhotoAlbum: true,
-        correctOrientation: true,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        mediaType: this.camera.MediaType.VIDEO
+			  destinationType: this.camera.DestinationType.DATA_URL,
+			  encodingType: this.camera.EncodingType.JPEG,
+			  mediaType: this.camera.MediaType.PICTURE
       }
       this.camera.getPicture(this.options)
         .then((imageData)=>{
-            
+            console.log("OK");
         }).then((path) => {
 
         })

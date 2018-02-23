@@ -3,7 +3,7 @@
  */
 
 import { BrowserModule } from '@angular/platform-browser';
-import { Pro } from '@ionic/pro';
+//import { Pro } from '@ionic/pro';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -41,12 +41,11 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider,
-    IonicErrorHandler
+    AuthServiceProvider
   ]
 })
 
-
+/*
 // <start monitoring stuff>
 Pro.init('03d7a2fc', {
   appVersion: '03d7a2fc'
@@ -72,6 +71,6 @@ export class MyErrorHandler implements ErrorHandler {
     this.ionicErrorHandler && this.ionicErrorHandler.handleError(err);
   }
 }
-// </ end monitoring stuff>
+// </ end monitoring stuff>*/
 
 export class AppModule {}
