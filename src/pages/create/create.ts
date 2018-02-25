@@ -2,6 +2,7 @@ import { Component,  ViewChild } from '@angular/core';
 import { NavController, Content, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class CreateEntry {
 
 	@ViewChild(Content) content: Content;
 
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private camera: Camera, private mediaCapture: MediaCapture) {
+	constructor(public navCtrl: NavController, private nativeStorage: NativeStorage, private alertCtrl: AlertController, private camera: Camera, private mediaCapture: MediaCapture) {
 		// active tab in main tabs nav
 		this._active_tab = 1;
 		// active tab in slider nav
@@ -660,8 +661,64 @@ export class CreateEntry {
 		this.galleryItem = item;
 	} 
 
+	findField(attr, arr) {
+		for(var i = 0; i < arr.length; i++) {
+			if(arr[i].name == attr) {
+				return arr[i];
+			}
+		}
+	}
+
 	saveEntry() {
-		console.log("save");
+		let newData = {
+			data: this.data[0].fields.concat(this.data[2].tabs, this.gallery),
+			name: this.data[0].fields[3].value,
+			country: this.data[0].fields[1].value,
+			confirmed: false,
+			date: ""
+		};
+		
+		let alert = this.alertCtrl.create({
+	      title: 'Do you want to save the progress?',
+	      subTitle: 'It will be available at the drafts page.',
+	      buttons: [
+	        {
+	          text: 'NO',
+	          role: 'cancel',
+	          handler: () => {
+	            //alert.dismiss();
+	          }
+	        },
+	        {
+	          text: 'YES',
+	          handler: () => {
+	          	this.nativeStorage.getItem('collections')
+						  .then(
+						    data => {
+						    	data.push(newData);
+						    	this.nativeStorage.setItem('collections', data);
+						    },
+						    error => {
+						    	this.nativeStorage.setItem('collections', [newData])
+								  .then(
+								    () => console.log('Stored item!'),
+								    error => console.error('Error storing item', error)
+								  )
+						    }
+						  );
+/*
+
+	            console.log(this.data, this.gallery);
+	            this.nativeStorage.setItem('myitem', {property: 'value', anotherProperty: 'anotherValue'})
+						  .then(
+						    () => console.log('Stored item!'),
+						    error => console.error('Error storing item', error)
+						  );*/
+	          }
+	        }
+	      ]
+	    });
+	    alert.present(prompt);
 	}
 	deleteImages() {
 		let alert = this.alertCtrl.create({
@@ -696,8 +753,8 @@ export class CreateEntry {
 			this.options = {
         quality: 100,
 			  destinationType: this.camera.DestinationType.DATA_URL,
-			  //encodingType: this.camera.EncodingType.JPEG,
-			  mediaType: this.camera.MediaType.VIDEO
+			  encodingType: this.camera.EncodingType.JPEG,
+			  mediaType: this.camera.MediaType.PICTURE
       }
 
       this.camera.getPicture(this.options)

@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { CreateEntry } from '../pages/create/create';
 import { WelcomePage } from '../pages/welcome/welcome'; 
+import { CollectionsPage } from '../pages/collections/collections'; 
 
 @Component({
   templateUrl: 'app.html'
@@ -28,7 +29,7 @@ export class MyApp {
       { title: 'BEACH REVIEWS', component: HomePage, class: 'dark' },
       { title: 'Create new beach review', component: CreateEntry, class: 'add' },
       { title: 'Welcome screen', component: WelcomePage, class: '' },
-      { title: 'My collections (0)', component: CreateEntry, class: 'devider' },
+      { title: 'My collections (0)', component: CollectionsPage, class: 'devider' },
       { title: 'Edit profile', component: CreateEntry, class: '' },
       { title: 'Sign out', component: CreateEntry, class: '' }
     ];

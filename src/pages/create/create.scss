@@ -86,10 +86,15 @@ page-create {
 	.slide-nav {
 		width: 100%;
 		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+		&::-webkit-scrollbar { 
+    display: none; 
+		}
 
 		.inner-wrapper {
 			display: flex;
-			width: 200%;
+			width: 180%;
+			-webkit-overflow-scrolling: touch;
 
 			.item {
 				padding: 4.17vw 2.22vw 4.17vw 2.22vw;

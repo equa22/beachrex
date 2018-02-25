@@ -1,7 +1,7 @@
 page-welcome {
 	
 
-	.content-md {
+	ion-content{
 		background-image: url("../assets/imgs/sand.png");
 		background-size: cover;
 		
@@ -14,7 +14,7 @@ page-welcome {
 			flex-direction: column;
 		}
 	}
-	.ion-md-menu:before {
+	ion-icon.icon{
 		color: $blue;
 	}
 

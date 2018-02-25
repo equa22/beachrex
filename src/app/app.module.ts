@@ -9,7 +9,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { CollectionsPage } from '../pages/collections/collections';
 import { CreateEntry } from '../pages/create/create';
 import { WelcomePage } from '../pages/welcome/welcome';
 
@@ -17,11 +17,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
+    CollectionsPage,
     CreateEntry,
     WelcomePage
   ],
@@ -33,7 +35,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
+    CollectionsPage,
     CreateEntry,
     WelcomePage
   ],
@@ -41,7 +43,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    NativeStorage
   ]
 })
 
