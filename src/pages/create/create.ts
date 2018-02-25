@@ -1,13 +1,13 @@
 import { Component,  ViewChild } from '@angular/core';
 import { NavController, Content, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
 
 
 @Component({
 	selector: 'page-create',
 	templateUrl: 'create.html',
-    providers: [[Camera]]
+    providers: [[Camera, MediaCapture]]
 })
 
 
@@ -33,13 +33,23 @@ export class CreateEntry {
 
 	@ViewChild(Content) content: Content;
 
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private camera: Camera) {
+	constructor(public navCtrl: NavController, private alertCtrl: AlertController, private camera: Camera, private mediaCapture: MediaCapture) {
 		// active tab in main tabs nav
 		this._active_tab = 1;
 		// active tab in slider nav
 		this._active_type = 1;
 
 		this._land_type = {};
+
+/*
+		let options: CaptureVideoOptions = { limit: 3 };
+		this.mediaCapture.captureVideo(options)
+	  .then(
+	    (data: MediaFile[]) => console.log(data),
+	    (err: CaptureError) => console.error(err)
+	  );
+
+*/
 
 		this._beach_type = [
 			{id: 1, name: 'Island', selected: false},
@@ -152,63 +162,63 @@ export class CreateEntry {
 								options: this.parse(this.response.beach.underwater_ground.data)
 							},
 							{
-							name: "Slope type",
-							required: true,
-							_display_title: true,
-							options: this.parse(this.response.beach.slope.data),
-							type: "select",
-							value: null
-						},
-						{
-							name: "Beach type",
-							required: true,
-							_display_title: true,
-							options: this.parse(this.response.beach.type.data),
-							type: "select",
-							value: null
-						},
-						{
-							name: "Beach occupation",
-							required: true,
-							_display_title: true,
-							options: this.parse(this.response.beach.occupancy.data),
-							type: "select",
-							value: null
-						},
-						{
-							name: "Beach length",
-							required: true,
-							_display_title: true,
-							options: this.parse(this.response.beach.length.data),
-							type: "select",
-							value: null
-						},
-						{
-							name: "Beach width",
-							required: true,
-							_display_title: true,
-							options: this.parse(this.response.beach.width.data),
-							type: "select",
-							value: null
-						},
-						{
-							name: "Free access",
-							required: true,
-							_display_title: true,
-							options: [{name: "Yes", value: "true", selected: false}, {name: "No", value: "false", selected: false}],
-							type: "radio",
-							value: null
-						},
-						{
-							name: "Seabed's depth increases to more than 1 meter at",
-							required: true,
-							_display_title: true,
-							options: [{name: "Europa", code: "EU"}, {name: "Azija", code: "AZ"}],
-							type: "select",
-							value: null
-						}
-					],
-					ready: false
+								name: "Slope type",
+								required: true,
+								_display_title: true,
+								options: this.parse(this.response.beach.slope.data),
+								type: "select",
+								value: null
+							},
+							{
+								name: "Beach type",
+								required: true,
+								_display_title: true,
+								options: this.parse(this.response.beach.type.data),
+								type: "select",
+								value: null
+							},
+							{
+								name: "Beach occupation",
+								required: true,
+								_display_title: true,
+								options: this.parse(this.response.beach.occupancy.data),
+								type: "select",
+								value: null
+							},
+							{
+								name: "Beach length",
+								required: true,
+								_display_title: true,
+								options: this.parse(this.response.beach.length.data),
+								type: "select",
+								value: null
+							},
+							{
+								name: "Beach width",
+								required: true,
+								_display_title: true,
+								options: this.parse(this.response.beach.width.data),
+								type: "select",
+								value: null
+							},
+							{
+								name: "Free access",
+								required: true,
+								_display_title: true,
+								options: [{name: "Yes", value: "true", selected: false}, {name: "No", value: "false", selected: false}],
+								type: "radio",
+								value: null
+							},
+							{
+								name: "Seabed's depth increases to more than 1 meter at",
+								required: true,
+								_display_title: true,
+								options: this.parse(this.response.beach.width.data),
+								type: "select",
+								value: null
+							}
+						],
+						ready: false
 					},
 					{
 						title: "Gastronomy",
@@ -340,6 +350,113 @@ export class CreateEntry {
 								]
 							}
 						]
+					},
+					{
+						title: "Parking",
+						fields: [
+							{
+								name: "Parking",
+								required: true,
+								_display_title: true,
+								type: "radio",
+								options: [
+									{
+										name: "Yes",
+										selected: false
+									},
+									{
+										name: "No",
+										selected: false	
+									}
+								]
+							},
+							{
+								name: "Payable",
+								required: true,
+								_display_title: true,
+								type: "radio",
+								options: [
+									{
+										name: "Yes",
+										selected: false
+									},
+									{
+										name: "No",
+										selected: false	
+									}
+								]
+							},
+							{
+								name: "Type of road to the parking",
+								required: true,
+								_display_title: true,
+								type: "radio",
+								options: this.parse(this.response.parking_and_path.path_to_the_parking.data),
+							},
+							{
+								name: "Recommended access with",
+								required: true,
+								_display_title: true,
+								type: "checkboxes",
+								options: this.parse(this.response.parking_and_path.recommended_access.data),
+							},
+							{
+								name: "Number of parking spaces",
+								required: true,
+								_display_title: true,
+								type: "select",
+								options: this.parse(this.response.parking_and_path.recommended_access.data),
+							},
+							{
+								name: "Distance to the beach",
+								required: true,
+								_display_title: true,
+								type: "select",
+								options: this.parse(this.response.parking_and_path.recommended_access.data),
+							},
+							{
+								name: "Height difference between the parking space and beach",
+								required: true,
+								_display_title: true,
+								type: "select",
+								options: this.parse(this.response.parking_and_path.recommended_access.data),
+							}
+						]
+					},
+					{
+						title: "Sport activities",
+						fields: [
+							{
+								name: "Sport activities",
+								required: true,
+								_display_title: true,
+								type: "checkboxes",
+								options: this.parse(this.response.sports.data)
+							}
+						]
+					},
+					{
+						title: "Tourist fascilities",
+						fields: [
+							{
+								name: "TO-DO!!!!",
+								required: true,
+								_display_title: true,
+								type: "multi-input",
+								placeholder: "New tourist facility",
+								options: [
+									{
+										value: ""
+									},
+									{
+										value: ""
+									},
+									{
+										value: ""
+									}
+								]
+							}
+						]
 					}
 				]
 			},
@@ -348,30 +465,76 @@ export class CreateEntry {
 			}
 		]
 
-		this.gallery = {
-			parking: {
+		this.gallery = [
+			{
 				images: [],
 				limit: 3,
 				type: "image",
-				label: "Parking Gallery"
+				button: "Parking",
+				label: "Parking Gallery",
+				icon: "photo",
+				required: false,
+				available: true
 			},
-			video: {
-				images: [{path: "assets/imgs/img1.png"}],
+			{
+				images: [],
 				limit: 7,
-				type: "video",
-				label: "Video Gallery"
+				type: "image",
+				button: "Path",
+				label: "Path Gallery",
+				icon: "photo",
+				required: false,
+				available: true
 			},
-			beach: {
-				images: [{path: "assets/imgs/img1.png"}, {path: "assets/imgs/img2.png"}, {path: "assets/imgs/img3.png"}],
+			{
+				images: [],
+				limit: 7,
+				type: "image",
+				button: "Draw the path",
+				label: "Draw the path",
+				icon: "map",
+				required: false,
+				available: true
+			},
+			{
+				images: [],
 				limit: 20,
 				type: "image",
-				label: "Beach Gallery"
+				button: "Beach",
+				label: "Beach Gallery",
+				icon: "photo",
+				required: true,
+				available: true
+			},
+			{
+				images: [],
+				limit: 5,
+				type: "video",
+				button: "Video",
+				label: "Video Gallery",
+				icon: "video",
+				required: true,
+				available: true
+			},
+			{
+				images: [],
+				limit: 7,
+				type: "image",
+				button: "Sphere",
+				label: "Sphere Gallery",
+				icon: "sphere",
+				required: false,
+				available: true
 			}
-		};
-
-
+		];
 	}
 
+	addField(item) {
+		item.options.push({value:""});
+	}
+	removeField(item, index) {
+		item.options.splice(index, 1);
+	}
 
 	parse(data) {
 		data.forEach(function(item) {
@@ -399,14 +562,18 @@ export class CreateEntry {
 
 	// check if all required fields are entered
 	validateStep(step) {
+		// if step is already validated
 		if(step.ready) {
 			return true;
 		} else {
+			//  check each field in step
 			for(var i = 0; i < step.fields.length; i++) {
+				// required, not checkbox and with empty value
 				if(step.fields[i].required && 
 					!step.fields[i].value &&
 					step.fields[i].type != "checkboxes") {
-					return step.fields[i].name;
+					//return step.fields[i].name;
+				// checkboxes
 				} else if(step.fields[i].type == "checkboxes") {
 					var counter = 0;
 					step.fields[i].options.forEach(function(item) {
@@ -414,7 +581,8 @@ export class CreateEntry {
 							counter++;
 						}
 					})
-					if(counter == 0) return step.fields[i].name;
+					// no checkbox selected
+					//if(counter == 0) return step.fields[i].name;
 				}
 			} 
 		}
@@ -429,7 +597,6 @@ export class CreateEntry {
 		block.value = item.name;
 	}
 	selectTab(tab) {
-		console.log(this.response)
 		// user wants to go back
 		if(this._active_tab > tab) {
 			this._active_tab = tab;
@@ -469,8 +636,7 @@ export class CreateEntry {
 		var validate = this.validateStep(this.data[2].tabs[this._active_type - 1]);
 
 		if(validate == true) {
-			if(type > this.data[2].tabs.length) this._active_tab = 4;
-			else this._active_type = type;
+			this._active_type = type;
 			
 			this.content.scrollToTop();
 		}
@@ -494,6 +660,9 @@ export class CreateEntry {
 		this.galleryItem = item;
 	} 
 
+	saveEntry() {
+		console.log("save");
+	}
 	deleteImages() {
 		let alert = this.alertCtrl.create({
 	      title: 'Are you sure you want to delete?',
@@ -521,13 +690,14 @@ export class CreateEntry {
 	    alert.present(prompt);
 	}
 
+
 	takePicture(item){
 		if(item.images.length < item.limit) {
 			this.options = {
         quality: 100,
 			  destinationType: this.camera.DestinationType.DATA_URL,
-			  encodingType: this.camera.EncodingType.JPEG,
-			  mediaType: this.camera.MediaType.PICTURE
+			  //encodingType: this.camera.EncodingType.JPEG,
+			  mediaType: this.camera.MediaType.VIDEO
       }
 
       this.camera.getPicture(this.options)

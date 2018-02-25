@@ -4,6 +4,13 @@
 	flex-wrap: wrap;
 	//margin-top: 4.86vw;
 
+	&.wide {
+		width: 100%;
+		padding-top: 3.47vw;
+		.item {
+			width: 100%;
+		}
+	}
 	.item {
 		width: 33.33%;
 		display: flex;
@@ -16,6 +23,7 @@
 		margin-left: 1.81vw;
 		color: $grey;
 		font-size: 3.75vw;
+		line-height: 4.17vw;
 	}
 
 	.group-title {
@@ -24,7 +32,7 @@
 		margin-bottom: 6.53vw;
 	}
 	.checkbox {
-		border-radius: 0;
+			border-radius: 0;
 	    border: none;
 	    background-image: url(../assets/icon/unchecked.png);
 	    background-color: transparent;
@@ -149,19 +157,56 @@ page-create {
 			}
 		}
 	}
+	.orange-text {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    padding: 9.72vw 0 9.03vw 0;
+    font-size: 3.89vw;
+    font-weight: bold;
+    line-height: 4.86vw;
+    color: $orange;
+    margin-top: 3.82vw;
+	}
+	.multi-input {
+		span {
+			color: $orange;
+			font-size: 6.53vw;
+			margin-left: 4.51vw;
+			font-weight: bold;
+		}
+		.input-wrapper {
+			margin-bottom: 14vw;
+		}
+		.button {
+			 float: right;
+			 color: $orange;
+	    font-size: 3.75vw;
+	    font-weight: bold;
+		}
+	}
 	.tab-content {
-		padding: 12vw 2.29vw 8.47vw 2.29vw;
+		padding: 0 2.29vw 8.47vw 2.29vw;
 		height: calc(100vh - 30.67vw);
     overflow: scroll;
 		align-items: flex-end;
-	    display: flex;
-	    flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
     &.small-top-padding {
     	padding-top: 2vw;
     }
     &.no-padding {
     	padding-top: 31vw;
+    }
+    &.push-down {
+    	height: calc(100vh - 44vw);
+    }
+    &:not(.push-down) {
+    	padding-top: 12vw;
+    }
+    .tab-content-item {
+    	width: 100%;
     }
 	}
 	.group-title {
@@ -237,6 +282,7 @@ page-create {
     }
     .text-input {
     	margin: 0;
+    	padding-bottom: 1.74vw;
     }
 	}
 	ion-item.item.item-block.item-md.item-checkbox {
